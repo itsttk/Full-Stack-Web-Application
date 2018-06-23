@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>welcomee</title>
+	<title>welcome</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href= "/css/home.css" type="text/css">
 </head>
 <body>
 
-	{{>header}}
-	<p>{{screamIT welcome}}</p>
+<p class="intro">G2 Crowd Team Roaster</p>
 
-   {{> footer}}
+<hr>
 
+
+{{#each welcome}}
+
+<div class="element">
+
+<p><img src="{{this.image_url}}" alt="{{ this.name }}" class="img1">
+
+<p class="name">{{this.name}} </p>
+<p class="title">{{this.title}}</p>
+<p class="bio">{{this.bio}}</p>
+
+
+
+<p class="{{this._id}}"> Want to work with {{this.name}} ? <a href="/{{this._id}}" class="button">Click here</a>
+
+</p>
+
+<p>{{this.count}} people have said Yes!</p>
+
+
+<br clear="all" />
+
+
+ </p>
+
+
+
+<hr>
+	
+
+</div>
+{{/each}}
 
 
 </body>

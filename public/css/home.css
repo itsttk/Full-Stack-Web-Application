@@ -1,0 +1,32 @@
+.intro{
+    color: red;
+    font-size: 25px;
+
+}
+
+.img1 {
+    float: left;
+    width:200px;
+    height:220px;
+    margin-right:15px
+}
+
+.name{
+	    text-transform: uppercase;
+
+}
+
+.img2{
+	float: none;
+	width:15px;
+	height:15px;
+	margin-right:5px;
+}
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: green;
+}

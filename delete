@@ -1,0 +1,12 @@
+<img src="/images/thumbs-up.svg" class="img2" >Yes!
+
+
+
+
+
+
+  name:results[i].name,
+    image_url:results[i].image_url,
+    title: results[i].title,
+    bio: results[i].bio,
+    count: 0
