@@ -1,0 +1,26 @@
+data_file - This contains functions to load data from api to mongodb database
+projetDetails- This contains documentation about project
+public- This contains all static front end code (css and images)
+views- This contains .hbs(HTML) file for front rendering
+.gitignore - Contains node_modules and server.log 
+package.json - All dependenies
+server.js - Starter code 
+readme.txt - readme file for current project
+
+If the server is up and running and when a call is made at ' http://localhost:3000/ ' it goes to (app.get) function. Then it calls loadData function ,at this point control goes into seeder.js file. In this file it calls getData function in data.js file. In data.js it loads data from api and then passes back control lo loadData function and it saves the data to mongodb database(for schema and model details please refer to seeder.js file). Everytime a call is made to  'localhost:3000' it loads data from api and update it dynamically to database. 
+
+Once user submits his email id on front end it goes into database and save the value(email) to the person he voted for. Then we dynamically update the vote count on front end and then redirect to '/user' location. At this point of time user can see his previous votes or can make a new vote. 
+
+
+If the person try to vote again to same person by opening a different session from different ip or browser window vote count will not be updated, however it will redirect to '/user' and show all previous votes.
+
+client side validation is done for form-input so that user entering email-id in proper format.
+
+Partials are used to reduce redundancy in code.
+
+please see attached images folder in the current directory.
+
+poll sample - it shows user trying to vote by using his email
+post_poll - it shows front end after user clicks his email id
+multi_poll- it shows user who voted to many employess 
+

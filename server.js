@@ -1,3 +1,5 @@
+//starting point of the application
+
 //requiring npm packages
 const express = require('express');
 const hbs = require('hbs');
@@ -24,6 +26,8 @@ app.set('view-engine', 'hbs');
 app.use (express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true })); 
 
+
+
 //this method creates all incoming requests from client to server.log file
 app.use((req, res, next)=>{
 
@@ -40,11 +44,14 @@ app.use((req, res, next)=>{
 	next();
 
 });
+
+
  
 
-//render '/' starting page as client request made
+//render ('/') starting page as client request made
 app.get('/', (req, res)=>{
-
+    
+    //database gets data from api dynamically everytime user visits the website and then renders it
 	seeder.loadData(function(err, data){
 		if(err){
 			console.log('Error getting data');
@@ -57,11 +64,14 @@ app.get('/', (req, res)=>{
 			    if(err){console.log('error');}  
 
 			    else{
-
+                    
+                    //helper: array to store retrieved database objects
 			    	var helper = [];
 			    	var doclength = docs.length;
 			    	helper.length = doclength;
+                    
 
+                    //get data(json objects) from database and create a array of json objects and render it on frient end
 				    for (var i = 0; i < doclength; i++) {
 				      var y = new Set(docs[i].user).size
 				      var obj = {count:y,_id:docs[i]._id, name:docs[i].name, image_url:docs[i].image_url,bio:docs[i].bio, title:docs[i].title};
@@ -82,6 +92,8 @@ app.get('/', (req, res)=>{
    
 
 });
+
+
 
 
 //get client post request and then redirect to /user 
@@ -106,12 +118,18 @@ app.post('/user', function(req, res) {
 
   				else{
 
+  					//flag: array to store retrieved database objects
  					var flag = [];
    					var doclength = docs.length;
     				flag.length = doclength;
 
+    				//get data(json objects) from database and create a array of json objects and render it on frient end (this loop runs after form data is updated in database)
 				    for (var i = 0; i < doclength; i++) {
+
+				    //size: returns no:of users signed up for the current user instance(in loop)
 				    var z = new Set(docs[i].user).size
+
+				    //docs[i].user.includes(req.body.name): this part of code tells whether the user(email from input form) is voted for this instance and returns boolean
 				    var obj = {count:z,_id:docs[i]._id, name:docs[i].name, image_url:docs[i].image_url,bio:docs[i].bio, title:docs[i].title,temp:docs[i].user.includes(req.body.name)};
 				    flag.push(obj);
 				    }
@@ -128,6 +146,11 @@ app.post('/user', function(req, res) {
   
 });
 
+//start port
 app.listen(port,()=>{
-  //console.log(`server is up and running ${port}`);
+   //console.log(`server is up and running ${port}`);
 });
+
+
+
+

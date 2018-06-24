@@ -1,3 +1,5 @@
+//this code helps in getting data from api and export it to be called from files
+
 //get request module 
 const request = require('request');
 

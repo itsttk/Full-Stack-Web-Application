@@ -16,7 +16,7 @@
 
 				<p>
 
-					<imgsrc="{{this.image_url}}" alt="{{ this.name }}" class="img1">
+					<img src="{{this.image_url}}" alt="{{ this.name }}" class="img1">
 
 					<p class="name">{{this.name}} </p>
 					<p class="title">{{this.title}}</p>
@@ -24,7 +24,7 @@
 
 					<p>      
 						<form action="/user" method="post">
-					            <label>Wanted to work with <span class="bold">{{this.name}} </span> ?</label>
+					            <label>Want to work with <span class="bold">{{this.name}} </span> ?</label>
 					            <input type="email" id="name" name="name" placeholder="email" />
 					            <input type="hidden" id="id" name="id" value="{{this._id}}">
 
