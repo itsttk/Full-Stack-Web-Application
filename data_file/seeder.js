@@ -1,22 +1,26 @@
-var user = require('../models/schema');
-const data = require('./data.js');
+//requiring npm packages
 const request = require('request');
+const mongoose = require('mongoose');
 
-var mongoose = require('mongoose');
+//requiring own files
+const data = require('./data.js');
 
-
+//connet to mongodb 
 mongoose.connect('mongodb://localhost:27017/data');
-
 var db = mongoose.connection;
 var Schema = mongoose.Schema;
 
 
-db.on('error', console.error.bind(console, 'Connection error'));
-db.on('open', function(callback) {
-	console.log('Connected to database.');
-});
+
+// code to check db connection (for testing purposes)
+// db.on('error', console.error.bind(console, 'Connection error'));
+// db.on('open', function(callback) {
+// 	console.log('Connected to database.');
+// });
 
 
+
+//create schema and model constructor for employee
 var employeSchema = new Schema({
 			name: String,
 			image_url: String,
@@ -25,13 +29,10 @@ var employeSchema = new Schema({
 			user: Array,
 			count:0
 	});
-
-
-
 var employe = mongoose.model("employe", employeSchema);
 
 
-
+//get data from api and store it to mongodb
 exports.loadData = function(cb){
 
 	data.getData((error, results)=>{
@@ -58,7 +59,6 @@ exports.loadData = function(cb){
 				}
 
 			});
-		//console.log("Load Step 1");
    		}
 
    		cb(null,'success');
@@ -68,6 +68,9 @@ exports.loadData = function(cb){
 
 }
 
+//export employe to use in other files
 module.exports.employe = employe;
+
+
 
 

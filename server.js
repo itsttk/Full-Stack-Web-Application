@@ -1,3 +1,4 @@
+//requiring npm packages
 const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
@@ -5,36 +6,43 @@ const mongoose = require('mongoose');
 const http = require('http');
 const bodyParser = require('body-parser');
 
-
-//var user = require('./models/schema.js');
+//requiring own files
 const data = require('./data_file/data.js');
 const seeder = require('./data_file/seeder.js');
 
-
+//use port 3000 unless there exists a preconfigured port
 const port = process.env.PORT || 3000;
 
+//create express application
 var app = express();
 
-
+//register handlebars partials and set view-engine
 hbs.registerPartials(__dirname+'/views/partials');
 app.set('view-engine', 'hbs');
 
-
+//middleware for accessing static files and http request
 app.use (express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-mongoose.connect('mongodb://localhost:27017/data');
+//this method creates all incoming requests from client to server.log file
+app.use((req, res, next)=>{
 
-var db = mongoose.connection;
-var Schema = mongoose.Schema;
+	var now = new Date().toString();
+	var log = `${now}: ${req.method} ${req.url}`;
 
-db.on('error', console.error.bind(console, 'Connection error'));
-db.on('open', function(callback) {
-  console.log('Connected to database.');
+	fs.appendFile('server.log', log + '\n' , (err)=>{
+		if(err){
+			console.log('unable to append file');
+	 	}
+
+	});
+
+	next();
+
 });
+ 
 
-
-
+//render '/' starting page as client request made
 app.get('/', (req, res)=>{
 
 	seeder.loadData(function(err, data){
@@ -42,7 +50,8 @@ app.get('/', (req, res)=>{
 			console.log('Error getting data');
 		} 
 		else {
-			console.log('step1');
+
+			//get data from database and render on frontend
 		    seeder.employe.find({}, function (err, docs) {
 
 			    if(err){console.log('error');}  
@@ -57,11 +66,8 @@ app.get('/', (req, res)=>{
 				      var y = new Set(docs[i].user).size
 				      var obj = {count:y,_id:docs[i]._id, name:docs[i].name, image_url:docs[i].image_url,bio:docs[i].bio, title:docs[i].title};
 				      helper.push(obj);
-				          console.log('step3');
 				    }
-			        console.log('step4');
 
-			    
 				    res.render('home.hbs', {
 				    welcome: helper
 				    });
@@ -77,11 +83,13 @@ app.get('/', (req, res)=>{
 
 });
 
-//post user form and return user
 
+//get client post request and then redirect to /user 
 app.post('/user', function(req, res) {
 
 	var temp = req.body.name;
+
+	//update database with data(email) from the form
 	seeder.employe.findOneAndUpdate(
 
     	{ _id: req.body.id }, 
@@ -92,6 +100,7 @@ app.post('/user', function(req, res) {
 
     	else {
 
+    		//render after updating the page
     		seeder.employe.find({}, function (err, docs) {
 				if(err){console.log('error');}  
 
@@ -113,13 +122,12 @@ app.post('/user', function(req, res) {
 
   				}
 
-				});
+			});
    		}
     });
   
 });
 
-
 app.listen(port,()=>{
-  console.log(`server is up and running ${port}`);
+  //console.log(`server is up and running ${port}`);
 });

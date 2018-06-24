@@ -12,21 +12,19 @@
 }
 
 .name{
-	    text-transform: uppercase;
-
+	text-transform: uppercase;
 }
 
-.img2{
-	float: none;
-	width:15px;
-	height:15px;
-	margin-right:5px;
+.bold{
+	font-weight:bold
 }
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
+.name{
+	color: #006400;
+}
+.title{
+	font-weight: bold;
+}
 
-    text-decoration: none;
-    color: green;
-}
+
+
+
