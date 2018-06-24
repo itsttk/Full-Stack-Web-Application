@@ -22,13 +22,19 @@
 <p class="name">{{this.name}} </p>
 <p class="title">{{this.title}}</p>
 <p class="bio">{{this.bio}}</p>
+{{#if this.temp}}
+
+<p>success</p>
+
+<p>{{this.count}} people have said Yes!</p>
 
 
+{{else}}
 
 <p >      
 	<form action="/user" method="post">
             <label>Wanted to work with {{this.name}} ?</label>
-            <input type="text" id="name" name="name" placeholder="email" />
+            <input type="text" id="name" name="name" placeholder="email" required/>
             <input type="hidden" id="id" name="id" value="{{this._id}}">
 
             <input type="submit" value="Yes!" />. 
@@ -39,6 +45,8 @@
 
 <p>{{this.count}} people have said Yes!</p>
 
+
+{{/if}}
 
 <br clear="all" />
 
@@ -52,6 +60,8 @@
 
 </div>
 {{/each}}
+
+
 
 
 </body>

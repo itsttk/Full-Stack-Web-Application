@@ -22,6 +22,7 @@ var employeSchema = new Schema({
 			image_url: String,
 			title: String,
 			bio:String,
+			user: Array,
 			count:0
 	});
 
@@ -31,73 +32,42 @@ var employe = mongoose.model("employe", employeSchema);
 
 
 
+exports.loadData = function(cb){
 
-function loadData() { data.getData((error, results)=>{
-
-
-
-	if (error) {console.log(error);}
+	data.getData((error, results)=>{
+	if (error) {cb(error,null);}
+	
 	else{
 
-	var count = results.length;
+		var count = results.length;
 
-	for (const x of results) {
+		for (const x of results) {
+			employe.find(x, function (err, docs) {
+				if(err) console.log('cannot add');
+				else if(docs.length>0){}//console.log('already there');}
+				else{
+					var employe1= new employe({
+				     name:x.name,
+				     image_url:x.image_url,
+				     title:x.title,
+				     bio:x.bio,
+				   //  user:[],
+				     count:0
+				 	});
+				 	employe1.save();
+				}
 
+			});
+		//console.log("Load Step 1");
+   		}
 
-		employe.find(x, function (err, docs) {
+   		cb(null,'success');
+	}
 
-		console.log(x.name);
-
-
-			if(err) console.log('cannot add');
-
-			else if(docs.length>0){console.log('already there');}
-
-			else{
-				var employe1= new employe({
-			     name:x.name,
-			     image_url:x.image_url,
-			     title:x.title,
-			     bio:x.bio,
-			     count:0
-			 	});
-
-			 	employe1.save();
-
-			}
-
-
-		});
-
-
-       
-
-
-	// //employe1.save();
-
-	// apidata.add(employe1);
-
-	// console.log(apidata[7]);
-
-   }
+});
 
 }
 
-});}
-
-
-
-//console.log(y);
-
-// function f (){
-
-
-
-// }
-
-
-
-module.exports.loadData = loadData;
 module.exports.employe = employe;
 
 
