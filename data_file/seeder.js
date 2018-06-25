@@ -9,7 +9,7 @@ const data = require('./data.js');
 
 //connet to mongodb 
 //mongoose.connect('mongodb://localhost:27017/data');
-mongoose.connect('mongodb://civilianttk@gmail.com:ttk@202011@ds117691.mlab.com:17691/data1234');
+mongoose.connect('mongodb://admin1:admin1@ds117691.mlab.com:17691/data1234');
 
 
 //mongodb://civilianttk@gmail.com:ttk@202011@ds117691.mlab.com:17691/data1234
