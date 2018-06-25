@@ -1,3 +1,5 @@
+Please check out the url 'https://young-bastion-51989.herokuapp.com/' , The current project is deployed to the real time server at this URL. 
+
 1. This is the project for displaying the data from api 'https://api.myjson.com/bins/16roa3' 
 
 2. Make sure that you have latest version of NodeJs and MongoDb installed. 
